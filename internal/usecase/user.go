@@ -1,20 +1,22 @@
 package usecase
 
-import "api/internal/entity"
+import "log"
 
-type userUseCase struct {
-	db    UserRepository
-	meili UserRepository
+func NewUserUseCase(db UserRepository, meili UserMeiliRepository) UserUseCase {
+	return &_userUseCase{db: db, meili: meili}
 }
 
-func New(db UserRepository, meili UserRepository) UserRepository {
-	return &userUseCase{db: db, meili: meili}
-}
-
-func (u *userUseCase) GetUsers(name string) ([]entity.User, error) {
-	return u.db.GetUsers(name)
-}
-
-func (u *userUseCase) GetUserByID(id int) (*entity.User, error) {
-	return u.meili.GetUserByID(id)
+func (u *_userUseCase) UpdateUser(id int) error {
+	log.Println("requested updating user", id)
+	user, err := u.db.GetUserByID(id)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	err = u.meili.UpdateUser(user)
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+	return nil
 }

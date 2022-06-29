@@ -23,18 +23,19 @@ func (r *repository) GetUsers(name string) ([]entity.User, error) {
 	reslut := []entity.User{}
 	for rows.Next() {
 		u := entity.User{}
-		rows.StructScan(&u)
+		if err := rows.StructScan(&u); err != nil {
+			return nil, err
+		}
 		reslut = append(reslut, u)
 	}
 	return reslut, nil
 }
 
 func (r *repository) GetUserByID(id int) (*entity.User, error) {
-	rows, err := r.db.Queryx("SELECT id, users.username, country, privileges, beta_key, email, username_aka FROM users LEFT JOIN users_stats USING (id) WHERE users.id = ?", id)
-	if err != nil {
+	row := r.db.QueryRowx("SELECT id, users.username, country, privileges, beta_key, email, username_aka FROM users LEFT JOIN users_stats USING (id) WHERE users.id = ?", id)
+	result := entity.User{}
+	if err := row.StructScan(&result); err != nil {
 		return nil, err
 	}
-	result := entity.User{}
-	rows.StructScan(&result)
 	return &result, nil
 }
