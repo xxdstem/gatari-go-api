@@ -20,15 +20,15 @@ func (r *repository) GetUsers(name string) ([]entity.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	reslut := []entity.User{}
+	result := []entity.User{}
 	for rows.Next() {
 		u := entity.User{}
 		if err := rows.StructScan(&u); err != nil {
 			return nil, err
 		}
-		reslut = append(reslut, u)
+		result = append(result, u)
 	}
-	return reslut, nil
+	return result, nil
 }
 
 func (r *repository) GetUserByID(id int) (*entity.User, error) {
