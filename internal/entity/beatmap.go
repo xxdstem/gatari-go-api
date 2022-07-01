@@ -9,7 +9,7 @@ type BeatmapSet struct {
 	PlayCount      int           `json:"playcount" db:"playcount"`
 	PassCount      int           `json:"passcount" db:"passcount"`
 	Ranked         int8          `json:"ranked" db:"ranked"`
-	RankFreezed    int8          `json:"ranked_status_freezed" db:"ranked_status_freezed"`
+	RankFrozen     int8          `json:"ranked_status_freezed" db:"ranked_status_freezed"`
 	RankDate       int           `json:"ranking_data" db:"ranking_data"`
 	Beatmaps       []BeatmapDiff `json:"beatmaps"`
 }

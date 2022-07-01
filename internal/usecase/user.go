@@ -1,22 +1,22 @@
 package usecase
 
-import "log"
+import (
+	"api/internal/entity"
+	"api/pkg/logging"
+)
 
-func NewUserUseCase(db UserRepository, meili UserMeiliRepository) UserUseCase {
-	return &_userUseCase{db: db, meili: meili}
+func NewUserUseCase(db UserRepository, l *logging.Logger) UserUseCase {
+	return &_userUseCase{
+		logger: l,
+		db:     db,
+	}
+}
+
+func (u *_userUseCase) GetUserById(id int) *entity.User {
+	user, _ := u.db.GetUserByID(id)
+	return user
 }
 
 func (u *_userUseCase) UpdateUser(id int) error {
-	log.Println("requested updating user", id)
-	user, err := u.db.GetUserByID(id)
-	if err != nil {
-		log.Println(err)
-		return err
-	}
-	err = u.meili.UpdateUser(user)
-	if err != nil {
-		log.Println(err)
-		return err
-	}
 	return nil
 }

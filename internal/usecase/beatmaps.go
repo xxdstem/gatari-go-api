@@ -1,16 +1,19 @@
 package usecase
 
-import "log"
+import "api/pkg/logging"
 
-func NewBeatmapsUseCase(db BeatmapRepository, meili BeatmapMeiliRepository) BeatmapsUseCase {
-	return &_beatmapUseCase{db: db, meili: meili}
+func NewBeatmapsUseCase(db BeatmapRepository, l *logging.Logger) BeatmapsUseCase {
+	return &_beatmapUseCase{
+		logger: l,
+		db:     db,
+	}
 }
 
 func (u *_beatmapUseCase) UpdateBeatmapSet(id int) error {
-	log.Println("requested updating beatmapset ", id)
-	b, err := u.db.GetBeatmapByID(id)
+	u.logger.Info("requested updating beatmapset ", id)
+	_, err := u.db.GetBeatmapByID(id)
 	if err != nil {
 		return err
 	}
-	return u.meili.UpdateBeatmap(b)
+	return nil
 }
