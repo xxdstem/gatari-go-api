@@ -1,14 +1,17 @@
 package usecase
 
-import "api/internal/entity"
+import (
+	"api/internal/entity"
+	"api/pkg/logging"
+)
 
 type _userUseCase struct {
-	db    UserRepository
-	meili UserMeiliRepository
+	logger *logging.Logger
+	db     UserRepository
 }
 type _beatmapUseCase struct {
-	db    BeatmapRepository
-	meili BeatmapMeiliRepository
+	logger *logging.Logger
+	db     BeatmapRepository
 }
 
 type BeatmapsUseCase interface {
@@ -16,6 +19,7 @@ type BeatmapsUseCase interface {
 }
 type UserUseCase interface {
 	UpdateUser(id int) error
+	GetUserById(id int) *entity.User
 }
 
 type UserRepository interface {
