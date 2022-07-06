@@ -17,6 +17,11 @@ func (u *_userUseCase) GetUserById(id int) *entity.User {
 	return user
 }
 
+func (u *_userUseCase) GetUserStatsByID(id int, mode int8) *entity.UserStats {
+	user, _ := u.db.GetUserStatsByID(id, mode)
+	return user
+}
+
 func (u *_userUseCase) UpdateUser(id int) error {
 	return nil
 }

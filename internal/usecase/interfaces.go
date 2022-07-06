@@ -19,11 +19,13 @@ type BeatmapsUseCase interface {
 }
 type UserUseCase interface {
 	UpdateUser(id int) error
+	GetUserStatsByID(id int, mode int8) *entity.UserStats
 	GetUserById(id int) *entity.User
 }
 
 type UserRepository interface {
 	GetUsers(name string) ([]entity.User, error)
+	GetUserStatsByID(id int, mode int8) (*entity.UserStats, error)
 	GetUserByID(id int) (*entity.User, error)
 }
 
