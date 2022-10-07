@@ -5,9 +5,10 @@ import (
 	"api/internal/usecase"
 	"api/pkg/logging"
 	"encoding/json"
-	"github.com/julienschmidt/httprouter"
 	"net/http"
 	"strconv"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 const (
@@ -36,6 +37,7 @@ func (h *handler) Register(router *httprouter.Router) {
 }
 
 func (h *handler) GetUserStats(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	h.logger.Info("hi hitler!")
 	param := params.ByName("uid")
 	uid, err := strconv.Atoi(param)
 	if err != nil {

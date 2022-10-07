@@ -27,4 +27,5 @@ require (
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.36.0 // indirect
 	golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9 // indirect
+	zxq.co/ripple/ocl v0.0.0-20190423081600-ba6c1b2f7885 // indirect
 )

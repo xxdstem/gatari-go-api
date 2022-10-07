@@ -4,6 +4,7 @@ import (
 	"api/internal/controller/http/users"
 	"api/internal/usecase"
 	"api/pkg/logging"
+
 	"github.com/julienschmidt/httprouter"
 )
 

@@ -19,8 +19,6 @@ var confFile = "./config/config.conf"
 func NewConfig() (*Config, error) {
 	c := Config{
 		DSN:       "root@/ripple",
-		Host:      "127.0.0.1:7700",
-		APIKey:    "masterKey",
 		RedisAddr: "localhost:6379",
 		Workers:   4,
 	}

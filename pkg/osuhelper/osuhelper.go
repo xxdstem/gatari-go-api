@@ -1,5 +1,11 @@
 package osuhelper
 
+import (
+	"fmt"
+	"math"
+	"strconv"
+)
+
 func ModeToStr(mode int8) string {
 	if mode == 3 {
 		return "mania"
@@ -11,4 +17,11 @@ func ModeToStr(mode int8) string {
 		return "taiko"
 	}
 	return "std"
+}
+
+func LevelProgress(l float64) float64 {
+	_, f := math.Modf(l)
+	f *= 100
+	p, _ := strconv.ParseFloat(fmt.Sprintf("%.0f", f), 64)
+	return p
 }
