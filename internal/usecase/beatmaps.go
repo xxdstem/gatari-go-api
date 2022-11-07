@@ -14,8 +14,7 @@ func NewBeatmapsUseCase(db BeatmapRepository, l *logging.Logger) BeatmapsUseCase
 	}
 }
 
-func (u *_b) UpdateBeatmapSet(id int) error {
-	u.logger.Info("requested updating beatmapset ", id)
+func (u *_b) GetBeatmapByID(id int) error {
 	_, err := u.db.GetBeatmapByID(id)
 	if err != nil {
 		return err

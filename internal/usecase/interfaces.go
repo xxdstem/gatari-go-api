@@ -5,7 +5,7 @@ import (
 )
 
 type BeatmapsUseCase interface {
-	UpdateBeatmapSet(id int) error
+	GetBeatmapByID(id int) error
 }
 type UserUseCase interface {
 	Update(id int) error
@@ -27,14 +27,6 @@ type UserRedisRepository interface {
 	GetUserRank(user *entity.User, mode string) (entity.UserRank, error)
 }
 
-type UserMeiliRepository interface {
-	UpdateUser(*entity.User) error
-}
-
 type BeatmapRepository interface {
 	GetBeatmapByID(id int) (*entity.BeatmapSet, error)
-}
-
-type BeatmapMeiliRepository interface {
-	UpdateBeatmap(*entity.BeatmapSet) error
 }
