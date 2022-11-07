@@ -6,9 +6,9 @@ import (
 
 type UserRepository interface {
 	GetUsers(name string) ([]entity.User, error)
-	GetUserStatsByID(id int, mode int8) (*entity.UserStats, error)
-	GetUserByID(id int) (*entity.User, error)
-	GetUserRanks(id int, mode int8) (entity.Rankinkgs, error)
+	GetStatsByID(id int, mode int8) (*entity.UserStats, error)
+	GetByID(id int) (*entity.User, error)
+	GetRanks(id int, mode int8) (entity.Rankinkgs, error)
 }
 
 type UserRedisRepository interface {

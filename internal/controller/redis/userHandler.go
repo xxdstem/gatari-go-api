@@ -2,35 +2,29 @@ package redis
 
 import (
 	"api/internal/usecase"
+	"api/pkg/logging"
 	"api/pkg/redispubhandler"
-	"log"
-	"strconv"
 )
 
 type handler struct {
 	t usecase.UserUseCase
+	l *logging.Logger
 }
 
 // type result struct {
 // 	UserID int `json:"user_id"`
 // }
 
-func NewUserHandler(t usecase.UserUseCase) *handler {
+func NewUserHandler(t usecase.UserUseCase, l *logging.Logger) *handler {
 	return &handler{
+		l: l,
 		t: t,
 	}
 }
 
 func (b *handler) Response(r *redispubhandler.Context) {
 	if r.Error != nil {
-		log.Fatal(r.Error)
-	}
-	userID, err := strconv.Atoi(r.Message)
-	if err == nil && userID != 0 {
-		err := b.t.UpdateUser(userID)
-		if err != nil {
-			log.Println(err)
-		}
+		b.l.Errorln(r.Error)
 	}
 
 }

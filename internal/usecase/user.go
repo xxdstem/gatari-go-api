@@ -8,21 +8,27 @@ import (
 	"zxq.co/ripple/ocl"
 )
 
+type _us struct {
+	logger *logging.Logger
+	rd     UserRedisRepository
+	db     UserRepository
+}
+
 func NewUserUseCase(db UserRepository, rd UserRedisRepository, l *logging.Logger) UserUseCase {
-	return &_userUseCase{
+	return &_us{
 		logger: l,
 		rd:     rd,
 		db:     db,
 	}
 }
 
-func (u *_userUseCase) GetUserById(id int) *entity.User {
-	user, _ := u.db.GetUserByID(id)
+func (u *_us) GetById(id int) *entity.User {
+	user, _ := u.db.GetByID(id)
 	return user
 }
 
-func (u *_userUseCase) GetUserStatsByID(id int, mode int8) *entity.UserStats {
-	user, err := u.db.GetUserByID(id)
+func (u *_us) GetStatsByID(id int, mode int8) *entity.UserStats {
+	user, err := u.db.GetByID(id)
 	if err != nil {
 		u.logger.Error(err)
 		return nil
@@ -30,9 +36,12 @@ func (u *_userUseCase) GetUserStatsByID(id int, mode int8) *entity.UserStats {
 	if mode == -1 {
 		mode = user.FavouriteMode
 	}
-	userStats, _ := u.db.GetUserStatsByID(id, mode)
-	userStats.AvgHits = float64(userStats.TotalHits / int64(userStats.PlayCount))
-	if rankings, err := u.db.GetUserRanks(id, mode); err == nil {
+	userStats, _ := u.db.GetStatsByID(id, mode)
+	if userStats.TotalHits > 0 && userStats.PlayCount > 0 {
+		userStats.AvgHits = float64(userStats.TotalHits) / float64(userStats.PlayCount)
+	}
+
+	if rankings, err := u.db.GetRanks(id, mode); err == nil {
 		userStats.Rankinkgs = rankings
 	}
 	modeStr := osuhelper.ModeToStr(mode)
@@ -44,6 +53,6 @@ func (u *_userUseCase) GetUserStatsByID(id int, mode int8) *entity.UserStats {
 	return userStats
 }
 
-func (u *_userUseCase) UpdateUser(id int) error {
+func (u *_us) Update(id int) error {
 	return nil
 }

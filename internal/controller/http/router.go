@@ -8,7 +8,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-func NewRouter(r *httprouter.Router, l *logging.Logger, t usecase.UserUseCase, b usecase.BeatmapsUseCase) {
+func NewUsersRoute(r *httprouter.Router, l *logging.Logger, t usecase.UserUseCase, b usecase.BeatmapsUseCase) {
 	userHandler := users.New(t, l)
 	userHandler.Register(r)
 }

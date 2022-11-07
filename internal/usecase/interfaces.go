@@ -2,33 +2,25 @@ package usecase
 
 import (
 	"api/internal/entity"
-	"api/pkg/logging"
 )
-
-type _userUseCase struct {
-	logger *logging.Logger
-	rd     UserRedisRepository
-	db     UserRepository
-}
-type _beatmapUseCase struct {
-	logger *logging.Logger
-	db     BeatmapRepository
-}
 
 type BeatmapsUseCase interface {
 	UpdateBeatmapSet(id int) error
 }
 type UserUseCase interface {
-	UpdateUser(id int) error
-	GetUserStatsByID(id int, mode int8) *entity.UserStats
-	GetUserById(id int) *entity.User
+	Update(id int) error
+	GetStatsByID(id int, mode int8) *entity.UserStats
+	GetById(id int) *entity.User
+}
+
+type LeaderboardUseCase interface {
 }
 
 type UserRepository interface {
 	GetUsers(name string) ([]entity.User, error)
-	GetUserStatsByID(id int, mode int8) (*entity.UserStats, error)
-	GetUserByID(id int) (*entity.User, error)
-	GetUserRanks(id int, mode int8) (entity.Rankinkgs, error)
+	GetStatsByID(id int, mode int8) (*entity.UserStats, error)
+	GetByID(id int) (*entity.User, error)
+	GetRanks(id int, mode int8) (entity.Rankinkgs, error)
 }
 
 type UserRedisRepository interface {

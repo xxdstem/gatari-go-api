@@ -20,14 +20,15 @@ func Handle(r *redis.Client, sub string, req Request) error {
 	}
 	go func() {
 		for {
-			msg, err := subscriber.ReceiveMessage()
-			if err != nil {
+
+			if msg, err := subscriber.ReceiveMessage(); err != nil {
 				req.Response(&Context{
 					Error: err,
 				})
+			} else {
+				req.Response(&Context{Message: msg.Payload})
 			}
 
-			req.Response(&Context{Message: msg.Payload})
 		}
 	}()
 	return nil

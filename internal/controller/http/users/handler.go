@@ -37,7 +37,6 @@ func (h *handler) Register(router *httprouter.Router) {
 }
 
 func (h *handler) GetUserStats(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
-	h.logger.Info("hi hitler!")
 	param := params.ByName("uid")
 	uid, err := strconv.Atoi(param)
 	if err != nil {
@@ -46,9 +45,9 @@ func (h *handler) GetUserStats(w http.ResponseWriter, r *http.Request, params ht
 	var user *entity.UserStats
 	mode := params.ByName("mode")
 	if modeInt, err := strconv.Atoi(mode); err == nil {
-		user = h.t.GetUserStatsByID(uid, int8(modeInt))
+		user = h.t.GetStatsByID(uid, int8(modeInt))
 	} else {
-		user = h.t.GetUserStatsByID(uid, -1)
+		user = h.t.GetStatsByID(uid, -1)
 	}
 	j, err := json.Marshal(user)
 	if err != nil {
@@ -68,7 +67,7 @@ func (h *handler) GetUser(w http.ResponseWriter, r *http.Request, params httprou
 		h.logger.Fatal(err)
 	}
 
-	user := h.t.GetUserById(uid)
+	user := h.t.GetById(uid)
 	j, err := json.Marshal(user)
 	if err != nil {
 		h.logger.Fatal(err)
