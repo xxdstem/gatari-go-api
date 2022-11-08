@@ -10,19 +10,36 @@ import (
 	"api/pkg/logging"
 	"net"
 	"net/http"
+	"time"
 
 	"api/internal/usecase"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/gofiber/fiber/v2"
 	"github.com/jmoiron/sqlx"
 	"github.com/julienschmidt/httprouter"
 	"gopkg.in/redis.v5"
 )
 
 type Router struct {
-	j *fiber.Router
+	j *httprouter.Router
 	l *logging.Logger
+}
+
+func (c Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	begin := time.Now()
+	header := w.Header()
+	if r.Method == http.MethodOptions {
+		if r.Header.Get("Access-Control-Request-Method") != "" {
+			header.Set("Access-Control-Allow-Methods", header.Get("Allow"))
+
+		}
+		// Adjust status code to 204
+		w.WriteHeader(http.StatusNoContent)
+	}
+	header.Set("Access-Control-Allow-Origin", "*")
+	header.Set("Content-Type", "application/json")
+	c.j.ServeHTTP(w, r)
+	c.l.Debugf("> Request end - time took: %s", time.Since(begin).String())
 }
 
 func Run(conf *config.Config, logger *logging.Logger) {
