@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/fatih/color v1.13.0
 	github.com/gofiber/fiber/v2 v2.39.0
+	github.com/thehowl/conf v0.1.0
 )
 
 require (
