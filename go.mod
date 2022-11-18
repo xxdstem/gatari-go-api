@@ -2,7 +2,10 @@ module github.com/xxdstem/gatari-go-api
 
 go 1.19
 
-require github.com/gofiber/fiber/v2 v2.39.0
+require (
+	github.com/fatih/color v1.13.0
+	github.com/gofiber/fiber/v2 v2.39.0
+)
 
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
