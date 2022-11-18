@@ -1,6 +1,8 @@
+привет всем привет росисе 
 # newApi
 новый АПИ для гатари(возможно нет)
 # TODO:
+- [ ] переделать всё нахуй ебать
  - ## General
   - [ ] Global Auth by Bearer token header
  - ## Leaderboard API
