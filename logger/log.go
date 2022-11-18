@@ -3,34 +3,13 @@ package logger
 import (
 	"fmt"
 	"time"
-
-	"github.com/fatih/color"
 )
 
 var latest chan log
 
-type Logger struct {
-	Mode uint8
-}
-
-type log struct {
-	Time time.Time
-	Mode uint8
-	Body string
-}
-
-type header struct {
-	Prefix string
-	Color  *color.Color
-}
-
 func Init() {
-	latest = make(chan log, 100000)
-	// latest <- log{
-	// 	Time: time.Now(),
-	// 	Mode: 1,
-	// 	Body: "nigger",
-	// }
+	latest = make(chan log)
+
 	go func() {
 		for {
 			c := <-latest
