@@ -3,3 +3,4 @@ app.exe
 logs/
 build/
 .idea/
+*.conf
