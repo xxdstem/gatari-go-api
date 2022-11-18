@@ -20,8 +20,8 @@
  - [ ] Clans list
  - [ ] Clan Get Stats
 - ## Users API
- - [x] UserStats
- - [x] GetById
+ - [ ] UserStats
+ - [ ] GetById
  - [ ] GetByUsername
  - [ ] Get Scores
  - [ ] Get Achievements
