@@ -27,6 +27,16 @@ func Init() {
 					h.Color = whiteOnBrightRed
 					h.Prefix = " ERR* "
 				}
+			case MODE_WARN:
+				{
+					h.Color = whiteOnYellow
+					h.Prefix = " WARN "
+				}
+			case MODE_DONE:
+				{
+					h.Color = whiteOnGreen
+					h.Prefix = " DONE "
+				}
 			}
 
 			printLog(c.Time, h, c.Body)
@@ -61,6 +71,22 @@ func (l *Logger) Info(text string) {
 	latest <- log{
 		Time: time.Now(),
 		Mode: MODE_INFO,
+		Body: text,
+	}
+}
+
+func (l *Logger) Done(text string) {
+	latest <- log{
+		Time: time.Now(),
+		Mode: MODE_DONE,
+		Body: text,
+	}
+}
+
+func (l *Logger) Warn(text string) {
+	latest <- log{
+		Time: time.Now(),
+		Mode: MODE_WARN,
 		Body: text,
 	}
 }

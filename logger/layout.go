@@ -8,6 +8,8 @@ const (
 // Modes
 const (
 	MODE_INFO = 1
+	MODE_DONE = 3
+	MODE_WARN = 4
 	MODE_ERR  = 5
 )
 
