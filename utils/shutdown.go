@@ -8,8 +8,10 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/xxdstem/gatari-go-api/logger"
+	"github.com/xxdstem/gatari-go-api/internal/logger"
 )
+
+var Run = make(chan bool)
 
 func SigHandler(f *fiber.App) {
 	exit := make(chan os.Signal, 1)
@@ -24,6 +26,6 @@ func SigHandler(f *fiber.App) {
 
 		CursorShow()
 		f.Shutdown()
-
+		Run <- false
 	}()
 }

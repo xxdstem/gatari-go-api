@@ -15,4 +15,5 @@ var (
 	whiteOnBrightBlue   = color.New(color.FgWhite).Add(color.BgHiBlue).Add(color.Bold)
 	redOnWhite          = color.New(color.FgRed).Add(color.BgWhite).Add(color.Bold)
 	whiteOnMagenta      = color.New(color.FgWhite).Add(color.BgMagenta).Add(color.Bold)
+	grey                = color.New(color.FgHiBlack)
 )

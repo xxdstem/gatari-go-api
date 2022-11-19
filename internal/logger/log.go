@@ -5,11 +5,9 @@ import (
 	"time"
 )
 
-var latest chan log
+var latest = make(chan log)
 
 func Init() {
-	latest = make(chan log)
-
 	go func() {
 		for {
 			c := <-latest
@@ -20,22 +18,22 @@ func Init() {
 			case MODE_INFO:
 				{
 					h.Color = blackOnWhite
-					h.Prefix = " INFO "
+					h.Prefix = "INFO"
 				}
 			case MODE_ERR:
 				{
 					h.Color = whiteOnBrightRed
-					h.Prefix = " ERR* "
+					h.Prefix = "ERR*"
 				}
 			case MODE_WARN:
 				{
 					h.Color = whiteOnYellow
-					h.Prefix = " WARN "
+					h.Prefix = "WARN"
 				}
 			case MODE_DONE:
 				{
 					h.Color = whiteOnGreen
-					h.Prefix = " DONE "
+					h.Prefix = "DONE"
 				}
 			}
 
@@ -60,11 +58,12 @@ func printLog(T time.Time, h header, text string) {
 	t := T.Format(timeLayout)
 
 	h.Color.Printf(" ")
-	fmt.Printf(" [ %s ] ", t)
+	grey.Printf(" [%s] ", t)
 
-	h.Color.Printf(h.Prefix)
+	// h.Color.Printf(" [%s] ", h.Prefix)
+	fmt.Printf("[%s] %s\n", h.Prefix, text)
 
-	fmt.Printf(" %s\n", text)
+	// fmt.Printf(" %s\n", text)
 }
 
 func (l *Logger) Info(text string) {

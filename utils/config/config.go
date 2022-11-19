@@ -1,10 +1,10 @@
-package utils
+package cfg
 
 import (
 	"fmt"
 
 	"github.com/thehowl/conf"
-	"github.com/xxdstem/gatari-go-api/logger"
+	"github.com/xxdstem/gatari-go-api/internal/logger"
 )
 
 type Config struct {
