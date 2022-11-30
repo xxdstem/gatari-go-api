@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 
+	"github.com/xxdstem/gatari-go-api/internal/dbmanager"
 	"github.com/xxdstem/gatari-go-api/internal/handlers"
 	"github.com/xxdstem/gatari-go-api/internal/logger"
 	"github.com/xxdstem/gatari-go-api/utils"
@@ -34,20 +36,37 @@ func init() {
 }
 
 func main() {
+	db, e := dbmanager.Connect("testuser", "61qRq2L9LaBlI9MU")
+	if e != nil {
+		fmt.Println(e)
+	}
+
+	usr, e := db.FindUsers("putin")
+	if e != nil {
+		fmt.Println(e)
+		os.Exit(1)
+	}
+
+	fmt.Println(usr)
+
 	f := fiber.New(fiber.Config{
 		DisableStartupMessage: true,
 	})
+
 	f.Use(cors.New()) //pls try default values, if it doesn't work, set config manually
 
 	// HANDLERS
-	//   api/v1
 
+	//   api/v1
 	api := f.Group("/api/v1")
 
 	api.Get("/hello", handlers.Hello)
 
 	// starting web
+	StartServer(f)
+}
 
+func StartServer(f *fiber.App) {
 	L.Info("Starting web server...")
 	L.Info("Press ctrl+c to exit")
 
