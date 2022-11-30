@@ -36,7 +36,7 @@ func init() {
 }
 
 func main() {
-	db, e := dbmanager.Connect("testuser", "61qRq2L9LaBlI9MU")
+	db, e := dbmanager.Connect(&Config.DB)
 	if e != nil {
 		fmt.Println(e)
 	}
