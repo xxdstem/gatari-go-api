@@ -3,4 +3,4 @@ app.exe
 logs/
 build/
 .idea/
-*.conf
+config.yml
